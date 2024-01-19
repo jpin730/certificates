@@ -1,131 +1,24 @@
 <div class="bg-light d-flex flex-column justify-content-between min-vh-100">
-  <nav class="navbar bg-dark mb-5" [style.height]="'40px'"></nav>
+  <nav class="navbar bg-dark" [style.height]="'40px'"></nav>
 
-  <main class="flex-grow-1">
-    <h1 class="text-center mb-5">Jaime Pineda's Certificates</h1>
+  <main class="flex-grow-1 container">
+    <h1 class="text-center my-4">Jaime Pineda's Certificates</h1>
 
     <app-instructions />
+
+    <app-category-selector
+      [categories]="categories"
+      (categoryChange)="selectedCategory = $event"
+    />
+
+    @for (certificate of certificates$ | async; track certificate.id) {
+      @if (
+        certificate.category === selectedCategory || selectedCategory === 'All'
+      ) {
+        <p>{{ certificate.id }}</p>
+      }
+    }
   </main>
 
   <app-footer />
 </div>
-
-<!-- 
-<div class="min-vh-100">
-  <div class="container mb-4">
-    <div
-      class="alert alert-info alert-dismissible text-center"
-      *ngIf="showAlert"
-    >
-      Click or tap on image to enlarge
-      <button
-        type="button"
-        class="btn-close"
-        (click)="showAlert = false"
-      ></button>
-    </div>
-  </div>
-
-  <div class="container mb-4">
-    <select
-      #categorySelect
-      class="form-select form-select-lg clickable shadow-sm"
-      [value]="filter"
-      (change)="filterCertifications(categorySelect.value)"
-    >
-      <option selected value="">
-        ALL ({{ certifications['all'] && certifications['all'].length }})
-      </option>
-      <option *ngFor="let category of categories" [value]="category">
-        {{ category | uppercase }} ({{ certifications[category].length }})
-      </option>
-    </select>
-  </div>
-
-  <ng-container
-    *ngIf="
-      certifications['all'] && certifications['all'].length !== 0;
-      else reloadCertifications
-    "
-  >
-    <div class="container mb-4" *ngFor="let year of years">
-      <h2 class="d-inline-block my-0">
-        {{ year }} ({{ filteredCertificationsByYear[year].length }})
-      </h2>
-      <hr class="m-0 mt-1 pb-2" />
-      <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
-        <ng-container
-          *ngFor="let certification of filteredCertificationsByYear[year]"
-        >
-          <div class="mb-3" *ngIf="certification.date.startsWith(year)">
-            <img
-              loading="lazy"
-              class="clickable w-100 shadow-sm"
-              [alt]="certification.id"
-              [title]="certification.id"
-              [src]="certification.image"
-              (click)="openPreview(certification)"
-            />
-          </div>
-        </ng-container>
-      </div>
-    </div>
-  </ng-container>
-
-  <ng-template #reloadCertifications>
-    <div class="container text-center">
-      <button
-        type="button"
-        class="btn btn-primary btn-lg m-5"
-        (click)="fetchCertifications()"
-        [disabled]="loading"
-      >
-        Reload certifications
-      </button>
-    </div>
-  </ng-template>
-</div>
-
-<footer class="bg-white text-center py-3 shadow-sm">
-  Made by <a href="https://github.com/jpin730" target="_blank">Jaime Pineda</a>
-</footer>
-
-<div
-  *ngIf="preview"
-  class="d-flex vh-100 vw-100 position-fixed top-0 start-0 bg-dark bg-opacity-75 px-md-5 z-100"
-  (click)="closePreview()"
->
-  <img
-    class="preview-img m-auto"
-    [alt]="certification.id"
-    [title]="certification.id"
-    [src]="certification.image"
-    (click)="$event.stopPropagation()"
-  />
-  <button
-    type="button"
-    class="btn-close btn-close-white position-fixed top-0 end-0 m-3"
-  ></button>
-</div>
-
-<div
-  *ngIf="showScrollToTop && !preview"
-  title="Go to top"
-  class="scroll-to-top bg-primary clickable position-fixed bottom-0 end-0 p-3 m-3 m-lg-5 rounded"
-  [@inOutAnimation]
-  (click)="scrollToTop()"
->
-  <img loading="eager" src="assets/top-arrow.svg" width="24" height="24" />
-</div>
-
-<div
-  *ngIf="loading"
-  class="position-fixed top-0 start-0 d-flex bg-dark bg-opacity-75 min-vh-100 min-vw-100 z-100"
->
-  <div
-    class="spinner-grow text-light m-auto"
-    style="width: 10rem; height: 10rem"
-  >
-    <span class="visually-hidden">Loading...</span>
-  </div>
-</div> -->

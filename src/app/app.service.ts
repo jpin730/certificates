@@ -15,8 +15,6 @@ export interface Certificate {
 export class AppService {
   firestore = inject(Firestore)
 
-  constructor() {}
-
   getCertificates(): Observable<Certificate[]> {
     const collectionRef = collection(this.firestore, 'certifications')
     return collectionData(collectionRef, { idField: 'id' }) as Observable<
