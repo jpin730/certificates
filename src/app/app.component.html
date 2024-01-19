@@ -1,0 +1,5 @@
+<ul>
+  @for (item of certificates$ | async; track item.id) {
+    <li>{{ item.id }} - {{ item.date }}</li>
+  }
+</ul>
