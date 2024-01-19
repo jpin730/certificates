@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --base-href=/certificates/ && rm -rf docs && mv dist/certificates/browser docs && rm -rf dist",
     "watch": "ng build --watch --configuration development",
     "lint": "ng lint",
     "format": "prettier . --write --ignore-unknown",
