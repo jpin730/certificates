@@ -27,6 +27,14 @@
             "prefix": "app",
             "style": "kebab-case"
           }
+        ],
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/no-explicit-any": "error",
+        "no-console": [
+          "error",
+          {
+            "allow": ["warn", "error"]
+          }
         ]
       }
     },
