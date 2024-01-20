@@ -10,6 +10,7 @@ import { NoCertificatesComponent } from './components/no-certificates/no-certifi
 import { LoaderComponent } from './components/loader/loader.component'
 import { CertificatePreviewerComponent } from './components/certificate-previewer/certificate-previewer.component'
 import { CertificateThumbnailComponent } from './components/certificate-thumbnail/certificate-thumbnail.component'
+import { ToTopComponent } from './components/to-top/to-top.component'
 
 const components = [
   FooterComponent,
@@ -19,6 +20,7 @@ const components = [
   LoaderComponent,
   CertificateThumbnailComponent,
   CertificatePreviewerComponent,
+  ToTopComponent,
 ]
 
 @Component({
