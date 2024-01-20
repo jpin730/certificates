@@ -12,14 +12,21 @@
         (categoryChange)="selectedCategory = $event"
       />
 
-      @for (certificate of certificates; track certificate.id) {
-        @if (
-          certificate.category === selectedCategory ||
-          selectedCategory === 'All'
-        ) {
-          <p>{{ certificate.id }}</p>
+      <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 g-3 mb-3">
+        @for (certificate of certificates; track certificate.id) {
+          @if (
+            certificate.category === selectedCategory ||
+            selectedCategory === 'All'
+          ) {
+            <div class="col">
+              <app-certificate-thumbnail
+                [certificate]="certificate"
+                (certificateSelected)="selectedCertificate = $event"
+              />
+            </div>
+          }
         }
-      }
+      </div>
     } @else if (loaded && certificates.length === 0) {
       <app-no-certificates (reload)="ngOnInit()" />
     } @else {
@@ -29,3 +36,8 @@
 
   <app-footer />
 </div>
+
+<app-certificate-previewer
+  [certificate]="selectedCertificate"
+  (previewClosed)="selectedCertificate = undefined"
+/>

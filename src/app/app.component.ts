@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core'
-import { CommonModule } from '@angular/common'
+import { CommonModule, NgOptimizedImage } from '@angular/common'
 import { take, tap } from 'rxjs'
 
 import { AppService, Certificate } from './app.service'
@@ -8,6 +8,8 @@ import { InstructionsComponent } from './components/instructions/instructions.co
 import { CategorySelectorComponent } from './components/category-selector/category-selector.component'
 import { NoCertificatesComponent } from './components/no-certificates/no-certificates.component'
 import { LoaderComponent } from './components/loader/loader.component'
+import { CertificatePreviewerComponent } from './components/certificate-previewer/certificate-previewer.component'
+import { CertificateThumbnailComponent } from './components/certificate-thumbnail/certificate-thumbnail.component'
 
 const components = [
   FooterComponent,
@@ -15,12 +17,14 @@ const components = [
   CategorySelectorComponent,
   NoCertificatesComponent,
   LoaderComponent,
+  CertificateThumbnailComponent,
+  CertificatePreviewerComponent,
 ]
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, ...components],
+  imports: [CommonModule, NgOptimizedImage, ...components],
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
@@ -29,6 +33,7 @@ export class AppComponent implements OnInit {
   certificates: Certificate[] = []
   categories: string[] = []
   selectedCategory = 'All'
+  selectedCertificate?: Certificate
   loaded = false
 
   ngOnInit(): void {
@@ -40,7 +45,12 @@ export class AppComponent implements OnInit {
           this.categories = [...new Set(data.map((c) => c.category).sort())]
         }),
         tap(({ loaded }) => (this.loaded = loaded)),
-        tap(({ data }) => (this.certificates = data))
+        tap(
+          ({ data }) =>
+            (this.certificates = data.sort((a, b) =>
+              b.date.localeCompare(a.date)
+            ))
+        )
       )
       .subscribe()
   }
