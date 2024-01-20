@@ -1,16 +1,20 @@
 import { Component, OnInit, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { Observable, take, tap } from 'rxjs'
+import { take, tap } from 'rxjs'
 
 import { AppService, Certificate } from './app.service'
 import { FooterComponent } from './components/footer/footer.component'
 import { InstructionsComponent } from './components/instructions/instructions.component'
 import { CategorySelectorComponent } from './components/category-selector/category-selector.component'
+import { NoCertificatesComponent } from './components/no-certificates/no-certificates.component'
+import { LoaderComponent } from './components/loader/loader.component'
 
 const components = [
   FooterComponent,
   InstructionsComponent,
   CategorySelectorComponent,
+  NoCertificatesComponent,
+  LoaderComponent,
 ]
 
 @Component({
@@ -22,18 +26,22 @@ const components = [
 export class AppComponent implements OnInit {
   private readonly appService = inject(AppService)
 
-  certificates$!: Observable<Certificate[]>
+  certificates: Certificate[] = []
   categories: string[] = []
   selectedCategory = 'All'
+  loaded = false
 
   ngOnInit(): void {
-    this.certificates$ = this.appService.getCertificates().pipe(
-      take(1),
-      tap((certificates) => {
-        this.categories = [
-          ...new Set(certificates.map((c) => c.category).sort()),
-        ]
-      })
-    )
+    this.appService
+      .getCertificates()
+      .pipe(
+        take(1),
+        tap(({ data }) => {
+          this.categories = [...new Set(data.map((c) => c.category).sort())]
+        }),
+        tap(({ loaded }) => (this.loaded = loaded)),
+        tap(({ data }) => (this.certificates = data))
+      )
+      .subscribe()
   }
 }

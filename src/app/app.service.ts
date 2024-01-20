@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core'
 import { Firestore, collection, collectionData } from '@angular/fire/firestore'
-import { Observable } from 'rxjs'
+import { Observable, catchError, map, of } from 'rxjs'
 
 export interface Certificate {
   date: string
@@ -9,16 +9,25 @@ export interface Certificate {
   id: string
 }
 
+interface Response {
+  data: Certificate[]
+  loaded: boolean
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class AppService {
   firestore = inject(Firestore)
 
-  getCertificates(): Observable<Certificate[]> {
+  getCertificates(): Observable<Response> {
     const collectionRef = collection(this.firestore, 'certifications')
-    return collectionData(collectionRef, { idField: 'id' }) as Observable<
-      Certificate[]
-    >
+    const data$ = collectionData(collectionRef, {
+      idField: 'id',
+    }) as Observable<Certificate[]>
+    return data$.pipe(
+      map((data) => ({ data, loaded: true })),
+      catchError(() => of({ data: [], loaded: false }))
+    )
   }
 }
