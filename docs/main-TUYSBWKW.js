@@ -23008,7 +23008,6 @@ var Rw = (() => {
           'border',
           'h-100',
           'w-100',
-          'rounded-0',
           'shadow-sm',
           3,
           'click',

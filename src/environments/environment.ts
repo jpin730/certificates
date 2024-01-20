@@ -8,11 +8,11 @@ interface Environment {
 export const environment: Environment = {
   production: true,
   firebase: {
-    projectId: 'portfolio-jpin730',
-    appId: '1:733714402019:web:a1301af4562abe9ecc53d6',
-    storageBucket: 'portfolio-jpin730.appspot.com',
-    apiKey: 'AIzaSyCUOML6rLU4b0uImZsqoGSpcIdponc0qA8',
-    authDomain: 'portfolio-jpin730.firebaseapp.com',
-    messagingSenderId: '733714402019',
+    projectId: 'some_value',
+    appId: 'some_value',
+    storageBucket: 'some_value',
+    apiKey: 'some_value',
+    authDomain: 'some_value',
+    messagingSenderId: 'some_value',
   },
 }
