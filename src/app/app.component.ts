@@ -46,7 +46,9 @@ export class AppComponent implements OnInit {
       .pipe(
         take(1),
         tap(({ data }) => {
-          this.categories = [...new Set(data.map((c) => c.category).sort())]
+          this.categories = [
+            ...new Set(data.flatMap((c) => c.category.split(','))),
+          ].sort()
         }),
         tap(({ loaded }) => (this.loaded = loaded)),
         tap(
