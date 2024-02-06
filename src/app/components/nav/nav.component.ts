@@ -28,13 +28,13 @@ export class NavComponent {
   }
 
   configureTheme(theme: Theme): void {
+    this.theme = theme
     document.documentElement.setAttribute('data-bs-theme', theme)
     localStorage.setItem('theme', theme)
   }
 
   toggleTheme(): void {
     const newTheme = this.theme === 'dark' ? 'light' : 'dark'
-    this.theme = newTheme
     this.configureTheme(newTheme)
   }
 }
