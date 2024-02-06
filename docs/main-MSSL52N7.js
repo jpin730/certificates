@@ -23270,12 +23270,13 @@ var yM = (t, e) => ({ 'bg-black': t, 'bg-dark': e }),
         this.configureTheme(i)
       }
       configureTheme(r) {
-        document.documentElement.setAttribute('data-bs-theme', r),
+        ;(this.theme = r),
+          document.documentElement.setAttribute('data-bs-theme', r),
           localStorage.setItem('theme', r)
       }
       toggleTheme() {
         let r = this.theme === 'dark' ? 'light' : 'dark'
-        ;(this.theme = r), this.configureTheme(r)
+        this.configureTheme(r)
       }
     }
     ;(e.ɵfac = function (i) {
@@ -23407,7 +23408,9 @@ function IM(t, e) {
       r = Ie(2)
     dt(
       0,
-      n.category === r.selectedCategory || r.selectedCategory === 'All' ? 0 : -1
+      n.category.includes(r.selectedCategory) || r.selectedCategory === 'All'
+        ? 0
+        : -1
     )
   }
 }
@@ -23461,7 +23464,9 @@ var qw = (() => {
         .pipe(
           Uc(1),
           Qt(({ data: r }) => {
-            this.categories = [...new Set(r.map((i) => i.category).sort())]
+            this.categories = [
+              ...new Set(r.flatMap((i) => i.category.split(','))),
+            ].sort()
           }),
           Qt(({ loaded: r }) => (this.loaded = r)),
           Qt(
