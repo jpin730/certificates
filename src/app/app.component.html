@@ -15,7 +15,7 @@
       <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 g-3 mb-5">
         @for (certificate of certificates; track certificate.id) {
           @if (
-            certificate.category.includes(selectedCategory) ||
+            certificate.category.split(',').includes(selectedCategory) ||
             selectedCategory === 'All'
           ) {
             <div class="col">
