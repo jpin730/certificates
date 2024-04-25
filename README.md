@@ -2,8 +2,6 @@
 
 An image gallery to show my certificates.
 
-<https://jpin730.github.io/certificates>
-
 ## How to use
 
 Install nvm and run `nvm use` to use the correct node version.
