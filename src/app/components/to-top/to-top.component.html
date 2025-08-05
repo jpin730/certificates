@@ -1,0 +1,16 @@
+@if (show$ | async) {
+  <button
+    title="Go to top"
+    class="btn btn-primary position-fixed bottom-0 end-0 p-3 m-3 m-lg-5 rounded"
+    [@inOutAnimation]
+    (click)="scrollToTop()"
+  >
+    <img
+      loading="eager"
+      src="assets/top-arrow.svg"
+      width="24"
+      height="24"
+      alt="top arrow icon"
+    />
+  </button>
+}

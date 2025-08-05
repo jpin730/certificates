@@ -1,0 +1,18 @@
+<!-- eslint-disable @angular-eslint/template/elements-content -->
+@if (certificate) {
+  <button
+    class="d-flex vh-100 vw-100 position-fixed top-0 start-0 bg-dark bg-opacity-75 px-md-5 z-3 p-0 m-0 border-0"
+    (click)="previewClosed.emit()"
+  >
+    <img
+      class="m-auto w-100 h-100 object-fit-contain"
+      [alt]="certificate.id"
+      [title]="certificate.id"
+      [src]="certificate.image"
+    />
+    <button
+      type="button"
+      class="btn btn-close btn-close-white position-fixed top-0 end-0 m-3"
+    ></button>
+  </button>
+}

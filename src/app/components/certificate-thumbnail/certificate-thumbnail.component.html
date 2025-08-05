@@ -1,0 +1,13 @@
+<button
+  type="button"
+  class="btn bg-white overflow-hidden border h-100 w-100 shadow-sm"
+  (click)="certificateSelected.emit(certificate)"
+>
+  <img
+    class="object-fit-contain w-100"
+    loading="lazy"
+    [alt]="certificate.id"
+    [title]="certificate.id"
+    [src]="certificate.image"
+  />
+</button>

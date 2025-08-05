@@ -1,0 +1,13 @@
+<!-- eslint-disable @angular-eslint/template/elements-content -->
+@if (showAlert) {
+  <div
+    class="alert alert-info alert-dismissible position-fixed bottom-0 start-50 translate-middle"
+  >
+    Click or tap on image to enlarge
+    <button
+      type="button"
+      class="btn-close"
+      (click)="showAlert = false"
+    ></button>
+  </div>
+}
